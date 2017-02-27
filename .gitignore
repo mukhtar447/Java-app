@@ -1,0 +1,12 @@
+*.iml
+.idea/
+logs/
+target/
+.classpath
+.project
+.settings
+node_modules
+temp
+src/main/node/defaultLanguage
+*.log
+**/resources/static
