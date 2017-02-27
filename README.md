@@ -10,8 +10,6 @@
 ##### Delimiter between Message Type and sales info is required
 `Message Type - sales info`
 
-#### Tests is NOT implementing, See TODO
-
 ##### Test case Message Type 1. It must contain product-type[0] and value[2]
 `Message Type 1 – apple at 10p`
 
