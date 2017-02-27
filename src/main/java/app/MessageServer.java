@@ -48,33 +48,15 @@ public class MessageServer implements Runnable {
                 new InputStreamReader(socket.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
-                numberOfMessage++;
-                if (numberOfMessage == PAUSING) {
-                    log("Pausing time ");
-                    printReport.printAdjustments(adjustments);
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    messages.add(line);
-                    Message message = Message.from(line);
-                    if (message == null) {
-                        log("invalid message  type: " + line);
-                    } else {
-                        processMessage(message);
-                    }
-                    if (numberOfMessage == LOG_TIME) {
-                        printReport.print(sales);
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
+                messages.add(line);
+                Message message = Message.from(line);
+                if (message == null) {
+                    log("invalid message  type: " + line);
+                } else if (numberOfMessage <= PAUSING) {
+                    processMessage(message);
                 }
+                numberOfMessage++;
+                print();
             }
 
         } catch (IOException e) {
@@ -104,6 +86,19 @@ public class MessageServer implements Runnable {
             break;
         default:
             numberOfMessage--;
+        }
+    }
+
+    private void print() {
+        if (numberOfMessage >= PAUSING) {
+            printReport.printAdjustments(adjustments);
+        } else if (numberOfMessage == LOG_TIME) {
+            printReport.print(sales);
+        }
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
