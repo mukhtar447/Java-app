@@ -21,8 +21,8 @@ public class MessageServer implements Runnable {
     private ProcessSales processSales;
     private PrintReport printReport;
     private int numberOfMessage = 0;
-    private static final int LOG_TIME = 5;
-    private static final int PAUSING = 10;
+    private static final int LOG_TIME = 10;
+    private static final int PAUSING = 50;
 
     public MessageServer(Socket socket) {
         this.socket = socket;
